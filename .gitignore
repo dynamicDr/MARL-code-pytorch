@@ -1,11 +1,11 @@
 # Training data and checkpoints
-**/data_train/!(*.txt)
+**/data_train/*.npy
 
 # Model files
-**/model/!(*.txt)
+**/model/*.pth
 
 # Tensorboard logs
-**/runs/!(*.txt)
+**/runs/events*
 
 # Python cache files
 **/__pycache__/
