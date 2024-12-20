@@ -1,0 +1,28 @@
+# Training data and checkpoints
+**/data_train/
+data_train/
+
+# Model files
+**/model/
+model/
+
+# Tensorboard logs
+**/runs/
+runs/
+
+# Python cache files
+**/__pycache__/
+*.py[cod]
+*$py.class
+
+# macOS system files
+.DS_Store
+**/.DS_Store
+
+# IDE settings
+.vscode/
+.idea/
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+**/.ipynb_checkpoints/
