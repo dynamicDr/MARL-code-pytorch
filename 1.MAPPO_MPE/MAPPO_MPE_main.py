@@ -1,3 +1,5 @@
+import os
+
 import torch
 import numpy as np
 from torch.utils.tensorboard import SummaryWriter
@@ -10,6 +12,9 @@ from make_env import make_env
 
 class Runner_MAPPO_MPE:
     def __init__(self, args, env_name, number, seed):
+        current_path = os.path.abspath(__file__)
+        self.current_dir = os.path.dirname(current_path)
+        print("=============》",self.current_dir)
         self.args = args
         self.env_name = env_name
         self.number = number
@@ -36,7 +41,7 @@ class Runner_MAPPO_MPE:
         self.replay_buffer = ReplayBuffer(self.args)
 
         # Create a tensorboard
-        self.writer = SummaryWriter(log_dir='runs/MAPPO/MAPPO_env_{}_number_{}_seed_{}'.format(self.env_name, self.number, self.seed))
+        self.writer = SummaryWriter(log_dir='{}/runs/MAPPO/MAPPO_env_{}_number_{}_seed_{}'.format(self.current_dir,self.env_name, self.number, self.seed))
 
         self.evaluate_rewards = []  # Record the rewards during the evaluating
         self.total_steps = 0
@@ -75,8 +80,8 @@ class Runner_MAPPO_MPE:
         print("total_steps:{} \t evaluate_reward:{}".format(self.total_steps, evaluate_reward))
         self.writer.add_scalar('evaluate_step_rewards_{}'.format(self.env_name), evaluate_reward, global_step=self.total_steps)
         # Save the rewards and models
-        np.save('./data_train/MAPPO_env_{}_number_{}_seed_{}.npy'.format(self.env_name, self.number, self.seed), np.array(self.evaluate_rewards))
-        self.agent_n.save_model(self.env_name, self.number, self.seed, self.total_steps)
+        np.save('{}/data_train/MAPPO_env_{}_number_{}_seed_{}.npy'.format(self.current_dir,self.env_name, self.number, self.seed), np.array(self.evaluate_rewards))
+        self.agent_n.save_model(self.env_name, self.number, self.seed, self.total_steps,self.current_dir)
 
     def run_episode_mpe(self, evaluate=False):
         episode_reward = 0

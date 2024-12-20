@@ -291,8 +291,8 @@ class MAPPO_MPE:
         critic_inputs = torch.cat([x for x in critic_inputs], dim=-1)  # critic_inputs.shape=(batch_size, episode_limit, N, critic_input_dim)
         return actor_inputs, critic_inputs
 
-    def save_model(self, env_name, number, seed, total_steps):
-        torch.save(self.actor.state_dict(), "./model/MAPPO_actor_env_{}_number_{}_seed_{}_step_{}k.pth".format(env_name, number, seed, int(total_steps / 1000)))
+    def save_model(self, env_name, number, seed, total_steps, abs_path):
+        torch.save(self.actor.state_dict(), "{}/model/MAPPO_actor_env_{}_number_{}_seed_{}_step_{}k.pth".format(abs_path,env_name, number, seed, int(total_steps / 1000)))
 
     def load_model(self, env_name, number, seed, step):
-        self.actor.load_state_dict(torch.load("./model/MAPPO_actor_env_{}_number_{}_seed_{}_step_{}k.pth".format(env_name, number, seed, step)))
+        self.actor.load_state_dict(torch.load("{}/model/MAPPO_actor_env_{}_number_{}_seed_{}_step_{}k.pth".format(abs_path,env_name, number, seed, step)))
