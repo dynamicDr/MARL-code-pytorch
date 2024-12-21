@@ -292,7 +292,7 @@ class MAPPO_MPE:
         return actor_inputs, critic_inputs
 
     def save_model(self, env_name, number, seed, total_steps, abs_path):
-        torch.save(self.actor.state_dict(), "{}/model/MAPPO_actor_env_{}_number_{}_seed_{}_step_{}k.pth".format(abs_path,env_name, number, seed, int(total_steps / 1000)))
+        torch.save(self.actor.state_dict(), "{}/model/{}_{}k.npy".format(abs_path,number,int(total_steps / 1000)))
 
-    def load_model(self, env_name, number, seed, step):
-        self.actor.load_state_dict(torch.load("{}/model/MAPPO_actor_env_{}_number_{}_seed_{}_step_{}k.pth".format(abs_path,env_name, number, seed, step)))
+    def load_model(self, env_name, number, seed, step, abs_path):
+        self.actor.load_state_dict(torch.load("{}/model/{}_{}k.npy".format(abs_path,number,int(step / 1000))))
