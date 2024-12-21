@@ -11,7 +11,7 @@ from make_env import make_env
 
 
 class Runner_MAPPO_MPE:
-    def __init__(self, args, env_name, number, seed):
+    def __init__(self, args, env_name, number, seed,num_of_agents):
         current_path = os.path.abspath(__file__)
         self.current_dir = os.path.dirname(current_path)
         print("=============》",self.current_dir)
@@ -23,7 +23,7 @@ class Runner_MAPPO_MPE:
         np.random.seed(self.seed)
         torch.manual_seed(self.seed)
         # Create env
-        self.env = make_env(env_name, discrete=True) # Discrete action space
+        self.env = make_env(env_name,num_of_agents=num_of_agents, discrete=True) # Discrete action space
         self.args.N = self.env.n  # The number of agents
         self.args.obs_dim_n = [self.env.observation_space[i].shape[0] for i in range(self.args.N)]  # obs dimensions of N agents
         self.args.action_dim_n = [self.env.action_space[i].n for i in range(self.args.N)]  # actions dimensions of N agents
@@ -122,7 +122,7 @@ class Runner_MAPPO_MPE:
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser("Hyperparameters Setting for MAPPO in MPE environment")
-    parser.add_argument("--max_train_steps", type=int, default=int(3e6), help=" Maximum number of training steps")
+    parser.add_argument("--max_train_steps", type=int, default=int(1e7), help=" Maximum number of training steps")
     parser.add_argument("--episode_limit", type=int, default=25, help="Maximum number of steps per episode")
     parser.add_argument("--evaluate_freq", type=float, default=5000, help="Evaluate the policy every 'evaluate_freq' steps")
     parser.add_argument("--evaluate_times", type=float, default=3, help="Evaluate times")
@@ -150,5 +150,5 @@ if __name__ == '__main__':
     parser.add_argument("--use_value_clip", type=float, default=False, help="Whether to use value clip.")
 
     args = parser.parse_args()
-    runner = Runner_MAPPO_MPE(args, env_name="simple_spread", number=1, seed=0)
+    runner = Runner_MAPPO_MPE(args, env_name="simple_spread", number=1, seed=0,num_of_agents=5)
     runner.run()
