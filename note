@@ -1,3 +1,2 @@
-
-
+bash scripts/run_5_spread.sh
 tensorboard --logdir=/home/zzydty/MARL-code-pytorch/1.MAPPO_MPE/runs

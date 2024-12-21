@@ -11,7 +11,7 @@ from make_env import make_env
 
 
 class Runner_MAPPO_MPE:
-    def __init__(self, args, env_name, number, seed,num_of_agents):
+    def __init__(self, args, env_name, number, seed):
         current_path = os.path.abspath(__file__)
         self.current_dir = os.path.dirname(current_path)
         print("=============》",self.current_dir)
