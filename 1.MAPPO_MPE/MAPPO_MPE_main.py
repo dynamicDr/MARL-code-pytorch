@@ -23,7 +23,7 @@ class Runner_MAPPO_MPE:
         np.random.seed(self.seed)
         torch.manual_seed(self.seed)
         # Create env
-        self.env = make_env(env_name,num_of_agents=num_of_agents, discrete=True) # Discrete action space
+        self.env = make_env(env_name,num_of_agents=self.args.num_of_agents, discrete=True) # Discrete action space
         self.args.N = self.env.n  # The number of agents
         self.args.obs_dim_n = [self.env.observation_space[i].shape[0] for i in range(self.args.N)]  # obs dimensions of N agents
         self.args.action_dim_n = [self.env.action_space[i].n for i in range(self.args.N)]  # actions dimensions of N agents
@@ -148,7 +148,8 @@ if __name__ == '__main__':
     parser.add_argument("--use_rnn", type=bool, default=False, help="Whether to use RNN")
     parser.add_argument("--add_agent_id", type=float, default=False, help="Whether to add agent_id. Here, we do not use it.")
     parser.add_argument("--use_value_clip", type=float, default=False, help="Whether to use value clip.")
+    parser.add_argument("--num_of_agents", type=int, default=3, help="")
 
     args = parser.parse_args()
-    runner = Runner_MAPPO_MPE(args, env_name="simple_spread", number=1, seed=0,num_of_agents=5)
+    runner = Runner_MAPPO_MPE(args, env_name="simple_spread", number=2, seed=0)
     runner.run()
